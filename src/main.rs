@@ -1,9 +1,13 @@
-use dialoguer::{Select, theme::ColorfulTheme, Error, Input};
-pub mod color;
+use std::net::IpAddr;
 
+use dialoguer::{Select, theme::ColorfulTheme, Error, Input};
+use local_ip_address::local_ip;
+use once_cell::sync::Lazy;
 use coloriz::*;
 
-const PRIMARY_COLOR: (u8, u8,u8) = (127, 0, 255);
+
+static PRIMARY_COLOR: (u8, u8,u8) = (127, 0, 255);
+static DEVICE_ID: Lazy<IpAddr> = Lazy::new(|| local_ip().unwrap());
 
 fn main() {
     let prompts = vec!["Create a budget", "Connect to budget", "List budgets"];
@@ -39,8 +43,12 @@ fn inputer(input: &str) -> Result<String, Error> {
         .interact_text()
 }
 
-
 fn create_budget() {
-    let budget_name = inputer("Enter budget name").unwrap().fg(PRIMARY_COLOR);
-    println!("YOu budget will be called: {}", budget_name);
+    let budget_name = inputer("Enter budget name").unwrap();
+
+    println!("Your budget will be called: {}, created by DEVICE {}", primary_color(&budget_name), DEVICE_ID.to_string());
+}
+
+fn primary_color(text: &str) -> StyledText {
+    text.fg(PRIMARY_COLOR)
 }
