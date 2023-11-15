@@ -10,22 +10,27 @@ static PRIMARY_COLOR: (u8, u8,u8) = (127, 0, 255);
 static DEVICE_ID: Lazy<IpAddr> = Lazy::new(|| local_ip().unwrap());
 
 fn main() {
-    let prompts = vec!["Create a budget", "Connect to budget", "List budgets"];
-
-    let option = prompter(prompts).unwrap();
-
-    match option {
-        0 => {
-            create_budget()
-        },
-        1 => {
-            println!("Poooorly");
-        },
-        2 => {
-            println!("Poooorly");
-        },
-        default => {
-            println!("Wiiiisely {}", default);
+    loop {
+        let prompts = vec!["Create a budget", "Connect to budget", "List budgets", "Quit"];
+    
+        let option = prompter(prompts).unwrap();
+    
+        match option {
+            0 => {
+                create_budget()
+            },
+            1 => {
+                println!("Poooorly");
+            },
+            2 => {
+                println!("Poooorly");
+            },
+            3 => {
+                break;
+            },
+            default => {
+                println!("Wiiiisely {}", default);
+            }
         }
     }
 }
