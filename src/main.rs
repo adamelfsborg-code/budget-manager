@@ -45,8 +45,7 @@ fn inputer(input: &str) -> Result<String, Error> {
 
 fn create_budget() {
     let budget_name = inputer("Enter budget name").unwrap();
-
-    println!("Your budget will be called: {}, created by DEVICE {}", primary_color(&budget_name), DEVICE_ID.to_string());
+    println!("You ({}) created budget: {}", DEVICE_ID.to_string(), primary_color(&budget_name));
 }
 
 fn primary_color(text: &str) -> StyledText {
